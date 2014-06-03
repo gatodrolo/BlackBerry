@@ -178,6 +178,10 @@ int main(int argc, char *argv[]) {
 
     cargar_configuracion(&invertir_acc,&usar_gamepad,&mando);
 
+    if(!(Controladores[0].handle || Controladores[1].handle)){
+    	usar_gamepad = 0;
+    }
+
 	while (!exit_application) {
 		do{
 			//Request and process BPS next available event
@@ -588,6 +592,10 @@ static void handleScreenEvent(bps_event_t *event) {
 						for(i=0;i<5;i++){
 							mando.botonera[i].estado &= ~(ESCUCHANDO|PULSADO);
 						}
+
+					    if(!(Controladores[0].handle || Controladores[1].handle)){
+					    	usar_gamepad = 0;
+					    }
 
 					}else if(INTERFAZ_ZONA_CHECKBOX_ACC == interfaz_zona){
 						invertir_acc = !invertir_acc;
